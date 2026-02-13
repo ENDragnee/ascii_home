@@ -1,0 +1,39 @@
+name: ascii_portfolio
+
+services:
+  postgres:
+    image: postgres:17.6
+    container_name: ascii_portfolio
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ascii_admin
+      POSTGRES_PASSWORD: qazwsxedc
+      POSTGRES_DB: ascii_portfolio
+    ports:
+      - "5432:5432"
+    volumes:
+      - ascii_portfolio_postgres:/var/lib/postgresql/data
+    networks:
+      - ascii_portfolio_network
+
+  laravel_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ascii_portfolio
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    networks:
+      - ascii_portfolio_network
+    depends_on:
+      - postgres
+
+volumes:
+  ascii_portfolio_postgres:
+
+networks:
+  ascii_portfolio_network:
+    driver: bridge
