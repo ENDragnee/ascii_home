@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 }); // Your public portfolio page
+Route::get('/projects', function () {
+    return view('projects');
+});
 
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
