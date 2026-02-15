@@ -1,0 +1,73 @@
+section {
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.section-title {
+    text-align: center;
+    font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+    margin: 0 auto 1rem auto; /* Center margin */
+    font-weight: 700;
+    color: var(--primary-color);
+    max-width: 900px; /* Limit width for readability */
+}
+.section-subtitle {
+    text-align: center;
+    font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+    margin: 0 auto 3.5rem auto; /* Center margin */
+    color: var(--text-secondary);
+    max-width: 750px; /* Limit width */
+    line-height: 1.65;
+}
+
+.project-card,
+.feature,
+.step,
+.about-philosophy {
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        border-color var(--transition-base),
+        background-color var(--transition-base);
+    box-shadow: 0 6px 18px var(--card-shadow);
+    border-radius: 15px;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+.project-card:hover,
+.feature:hover,
+.step:hover,
+.about-philosophy:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px var(--card-hover-shadow);
+    border-color: var(--card-hover-border);
+    background-color: rgba(35, 35, 60, 0.9);
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 14px 35px;
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        background-color var(--transition-base),
+        color var(--transition-base);
+    box-shadow: 0 5px 18px rgba(0, 229, 255, 0.3);
+    cursor: pointer; /* Ensure pointer cursor */
+}
+.cta-button:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 229, 255, 0.45);
+    background: #fff;
+    color: var(--primary-color);
+}

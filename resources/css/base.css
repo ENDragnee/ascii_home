@@ -1,0 +1,92 @@
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    margin: 0;
+    line-height: 1.6;
+    font-size: 16px; /* Base font size */
+}
+
+.cursor {
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition:
+        transform 0.1s ease-out,
+        width 0.2s ease,
+        height 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+    mix-blend-mode: difference;
+}
+.cursor.hover {
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: transparent;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.background-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+        );
+    background-size: 60px 60px;
+    z-index: -1;
+    transition: background-position 0.1s linear; /* Parallax effect */
+}
+
+h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+p {
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+a:hover {
+    color: #fff;
+}
