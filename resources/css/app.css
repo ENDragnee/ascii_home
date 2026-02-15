@@ -6,6 +6,7 @@
 @import "./services.css";
 @import "./sections.css";
 @import "./responsive.css";
+@import "aos/dist/aos.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
