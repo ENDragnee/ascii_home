@@ -194,24 +194,38 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <h2 class="section-title">Impactful Solutions Delivered</h2>
+    <section id="featured" class="projects"> <!-- Renamed from 'projects' to 'featured' -->
+        <div class="projects-content">
+        <h2 class="section-title" data-aos="fade-down">Impactful Solutions Delivered</h2>
+        <p class="section-subtitle" data-aos="fade-up">
+            Selected highlights from our portfolio.
+        </p>
+
+        <!-- Dynamic Loop for Homepage (Top 3) -->
         <div class="project-cards">
-            <div class="project-card" data-aos="zoom-in-up">
-                <h3>SaaS Founders Hub</h3>
-                <p>Platform connecting student entrepreneurs with venture tools.</p>
+            @foreach($featured_portfolios as $project)
+                <div class="project-card" data-aos="zoom-in-up">
+                    {{-- Get the Thumbnail or first image --}}
+                    @php
+                        $thumb = $project->media->where('is_thumbnail', true)->first() ?? $project->media->first();
+                    @endphp
+
+                    @if($thumb)
+                         <img src="{{ Storage::url($thumb->url) }}"
+                              alt="{{ $project->title }}"
+                              style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    @endif
+
+                    <h3 class="project-title">{{ $project->title }}</h3>
+                    <p>{{ Str::limit($project->description, 100) }}</p>
+                </div>
+            @endforeach
             </div>
-            <div class="project-card" data-aos="zoom-in-up" data-aos-delay="200">
-                <h3>Lumo E-Learning</h3>
-                <p>Interactive ecosystem with personalized learning paths.</p>
+
+            <div class="cta-container" data-aos="fade-up">
+            <!-- This button takes them to the full separate page -->
+                <a href="{{ url('projects') }}" class="cta-button">View All Projects</a>
             </div>
-            <div class="project-card" data-aos="zoom-in-up" data-aos-delay="400">
-                <h3>OneClick Pay Gateway</h3>
-                <p>Modern, secure payment gateway focused on DX.</p>
-            </div>
-        </div>
-        <div class="cta-container">
-            <a href="{{ url('projects') }}" class="cta-button">View More Projects</a>
         </div>
     </section>
 

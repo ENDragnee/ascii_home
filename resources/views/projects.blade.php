@@ -1,724 +1,301 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ascii Technologies - Project Showcase</title>
-    <link rel="icon" href="Artboard 1.ico" type="image/x-icon" />
-    <style>
-      :root {
-        --bg-dark: #0a0a0a;
-        --accent-teal: #00ffd4;
-        --accent-purple: #6a0dad;
-        --text-silver: #c0c0c0;
-      }
+@extends('layouts.app')
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        cursor: none;
-      }
+@section('title', 'Ascii Technologies - Project Showcase')
 
-      @media (max-width: 768px) {
-        * {
-          cursor: auto; /* Disable custom cursor on mobile/touch devices */
-        }
+@push('styles')
+<style>
+    /* =========================================
+       Project Page Specific Styles
+       ========================================= */
 
-        .cursor {
-          display: none; /* Hide custom cursor on mobile */
-        }
-      }
+    /* Hide the global background grid on this page if it interferes with images,
+       or let it sit behind via z-index. Here we ensure sections cover it. */
 
-      body {
-        font-family: "Space Grotesk", sans-serif;
-        background-color: var(--bg-dark);
-        color: var(--text-silver);
-        overflow-x: hidden;
-        line-height: 1.6;
-      }
-
-      #ascii-payment {
-        background-image: url("image/card.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #ascii-payment::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
+    /* Main Container for Scroll Snap */
+    .projects-container {
+        height: 100vh;
         width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #ascii-payment .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #lumo {
-        background-image: url("image/lumo.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #lumo::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #lumo .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #usae-event-manager {
-        background-image: url("image/run.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #usae-event-manager::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #usae-event-manager .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #usae-registration {
-        background-image: url("image/sun.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #usae-registration::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #usae-registration .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #aastu-cafeteria {
-        background-image: url("image/cafeteria.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #aastu-cafeteria::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #aastu-cafeteria .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #aastu-check-out {
-        background-image: url("image/exit.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #aastu-check-out::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #aastu-check-out .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #aastu-maps {
-        background-image: url("image/map.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #aastu-maps::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #aastu-maps .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #student-validator {
-        background-image: url("image/hand.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #student-validator::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #student-validator .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #saas-founders {
-        background-image: url("image/saas.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #saas-founders::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #saas-founders .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      .background-grid {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-          linear-gradient(
-            0deg,
-            transparent 24%,
-            rgba(0, 255, 212, 0.05) 25%,
-            rgba(0, 255, 212, 0.05) 26%,
-            transparent 27%
-          ),
-          linear-gradient(
-            90deg,
-            transparent 24%,
-            rgba(0, 255, 212, 0.05) 25%,
-            rgba(0, 255, 212, 0.05) 26%,
-            transparent 27%
-          );
-        background-size: 50px 50px;
-        z-index: 1;
-        opacity: 2;
-        animation: gridMove 20s linear infinite;
-        pointer-events: none;
-      }
-
-      @keyframes gridMove {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: 50px 50px;
-        }
-      }
-
-      .projects-container {
-        scroll-snap-type: y proximity; /* Changed from mandatory for better mobile experience */
         overflow-y: auto;
-        height: 100vh;
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
-      }
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        /* Hide scrollbar for cleaner look */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+    }
 
-      .project-section {
+    .projects-container::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    /* Individual Project Section */
+    .project-section {
         height: 100vh;
         width: 100%;
+        position: relative;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         scroll-snap-align: start;
-        padding: 2rem;
-        position: relative;
-        background-color: var(--bg-dark);
-      }
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        /* Fix background for parallax feel */
+        background-attachment: fixed;
+        overflow: hidden;
+    }
 
-      .project-section::before {
+    /* Overlay to ensure text readability over any image */
+    .project-section::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(
-          circle at center,
-          rgba(0, 255, 212, 0.1) 0%,
-          transparent 70%
+        inset: 0;
+        /* Gradient from top (transparent) to bottom (darker) */
+        background: linear-gradient(
+            to bottom,
+            rgba(10, 10, 26, 0.3) 0%,
+            rgba(10, 10, 26, 0.6) 50%,
+            rgba(10, 10, 26, 0.95) 100%
         );
         z-index: 1;
-      }
+        pointer-events: none;
+    }
 
-      .project-content {
-        max-width: 800px;
-        text-align: center;
-        z-index: 2;
+    /* Glassmorphism Content Box */
+    .project-content {
         position: relative;
-        padding: 0 20px;
-      }
+        z-index: 2;
+        max-width: 900px;
+        padding: 3rem;
+        text-align: center;
 
-      .project-title {
-        font-size: clamp(1.5rem, 6vw, 4rem);
-        color: var(--accent-teal);
-        margin-bottom: 1rem;
+        /* The Glass Effect */
+        background: rgba(16, 16, 30, 0.65);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+        /* Animation Entry */
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    /* Animate content when in view (handled by JS intersection observer below) */
+    .project-section.in-view .project-content {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Typography */
+    .project-title {
+        font-family: 'Space Grotesk', sans-serif; /* Assuming you have this font */
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
         text-transform: uppercase;
-      }
+        letter-spacing: -1px;
+        /* Dynamic color applied inline via Blade */
+    }
 
-      .project-description {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: clamp(0.9rem, 2vw, 1.2rem);
-        margin-bottom: 2rem;
-      }
+    .project-description {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        color: #e0e0e0;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-      .project-link {
-        color: var(--accent-teal);
+    /* Action Button */
+    .project-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 45px;
+        font-size: 1.1rem;
+        font-weight: 700;
         text-decoration: none;
-        border: 2px solid var(--accent-teal);
-        padding: 10px 20px;
-        border-radius: 5px;
-        transition: all 0.3s ease;
+        border-radius: 100px;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: 2px solid transparent;
+        background: transparent;
+    }
+
+    .project-link-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        /* Background and text color swap handled inline */
+    }
+
+    .project-link-btn i {
+        transition: transform 0.3s ease;
+    }
+
+    .project-link-btn:hover i {
+        transform: translateX(4px) scale(1.1);
+    }
+
+    /* Internal/Private Project Badge */
+    .internal-badge {
         display: inline-block;
-        font-size: clamp(0.9rem, 2vw, 1rem);
-      }
+        padding: 12px 30px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        border-radius: 50px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        cursor: not-allowed;
+    }
 
-      .project-link:hover {
-        background-color: var(--accent-teal);
-        color: var(--bg-dark);
-      }
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 768px) {
+        .projects-container {
+            scroll-snap-type: y proximity; /* Less strict on mobile */
+        }
 
-      @media (max-width: 768px) {
         .project-section {
-          padding: 1rem;
-          height: auto;
-          min-height: 100vh;
+            background-attachment: scroll; /* Fix performance on mobile */
+            padding: 1rem;
+        }
+
+        .project-content {
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            background: rgba(16, 16, 30, 0.85); /* More opaque on mobile */
         }
 
         .project-title {
-          font-size: clamp(1.5rem, 6vw, 2.5rem);
+            margin-bottom: 1rem;
         }
+    }
+</style>
+@endpush
 
-        .project-description {
-          font-size: 1rem;
-        }
+@section('content')
 
-        .project-link {
-          padding: 12px 24px;
-          font-size: 1rem;
-        }
+<div class="projects-container">
 
-        /* Disable fixed background on mobile for better performance */
-        #ascii-payment,
-        #lumo,
-        #usae-event-manager,
-        #usae-registration,
-        #aastu-cafeteria,
-        #aastu-check-out,
-        #aastu-maps,
-        #student-validator,
-        #saas-founders {
-          background-attachment: scroll;
-        }
-      }
+    {{-- Loop through the portfolios passed from the Controller --}}
+    @forelse($portfolios as $index => $project)
 
-      .cursor {
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--accent-teal);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        transition: transform 0.1s ease;
-        z-index: 9999;
-      }
+        @php
+            // 1. Determine Background Image
+            // Logic: Check for 'is_thumbnail' first. If not found, use the first media item.
+            // If media is empty, use a placeholder.
 
-      .sidebar-nav {
-        position: fixed;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        z-index: 10;
-      }
+            $mediaItem = $project->media->sortByDesc('is_thumbnail')->first();
 
-      .sidebar-nav a {
-        position: relative;
-        width: 15px;
-        height: 15px;
-        background-color: rgb(255 255 255 / 58%);
-        border-radius: 50%;
-        transition: all 0.3s ease;
-      }
+            if ($mediaItem) {
+                // Determine if we are on S3 or Local Public
+                $bgUrl = Storage::url($mediaItem->url);
+            } else {
+                // Fallback image if no media exists
+                $bgUrl = asset('images/default-bg.jpg'); // Ensure you have a default image
+            }
 
-      .sidebar-nav a:hover {
-        background-color: var(--accent-teal);
-        transform: scale(1.5);
-      }
+            // 2. Determine Accent Color (Default to Teal if not set)
+            $accentColor = $project->color ?? '#00ffd4';
 
-      .sidebar-nav a::after {
-        content: attr(data-label);
-        position: absolute;
-        left: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.05);
-        color: white;
-        padding: 5px 10px;
-        font-size: 12px;
-        border-radius: 16px;
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-      }
+            // 3. Convert Hex to RGB for rgba usage
+            list($r, $g, $b) = sscanf($accentColor, "#%02x%02x%02x");
+        @endphp
 
-      .sidebar-nav a:hover::after {
-        opacity: 1;
-      }
+        <section class="project-section"
+                 id="project-{{ $project->id }}"
+                 style="background-image: url('{{ $bgUrl }}');">
 
-      .sidebar-nav a.active {
-        background-color: var(--accent-teal);
-      }
+            <div class="project-content">
+                {{-- Dynamic Title --}}
+                <h2 class="project-title" style="color: {{ $accentColor }}; text-shadow: 0 0 30px rgba({{ $r }}, {{ $g }}, {{ $b }}, 0.3);">
+                    {{ $project->title }}
+                </h2>
 
-      /* Mobile navigation */
-      @media (max-width: 768px) {
-        .sidebar-nav {
-          bottom: 0;
-          left: 0;
-          top: auto;
-          transform: none;
-          width: 100%;
-          flex-direction: row;
-          justify-content: space-around;
-          background-color: rgba(10, 10, 10, 0.8);
-          padding: 15px 0;
-          gap: 0;
-        }
+                {{-- Dynamic Description --}}
+                <p class="project-description">
+                    {{ $project->description }}
+                </p>
 
-        .sidebar-nav a {
-          width: 30px;
-          height: 30px;
-        }
+                {{-- Dynamic Link Logic --}}
+                @if($project->link)
+                    <a href="{{ $project->link }}"
+                       target="_blank"
+                       class="project-link-btn"
+                       style="border-color: {{ $accentColor }}; color: {{ $accentColor }};"
+                       onmouseover="this.style.backgroundColor='{{ $accentColor }}'; this.style.color='#000';"
+                       onmouseout="this.style.backgroundColor='transparent'; this.style.color='{{ $accentColor }}';">
 
-        .sidebar-nav a::after {
-          display: none;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="cursor"></div>
-    <nav class="sidebar-nav">
-      <a href="index.html" data-label="Home"></a>
-      <a href="#about" data-label="About"></a>
-      <a href="#services" data-label="Services"></a>
-      <a href="#hero" class="active" data-label="Projects"></a>
-      <a href="#contact" data-label="Contact"></a>
-    </nav>
-    <div class="background-grid"></div>
+                       Explore Project
+                       <i class="fas fa-external-link-alt"></i>
+                    </a>
+                @else
+                    <div class="internal-badge">
+                        <i class="fas fa-lock" style="margin-right: 8px;"></i> Internal / Private Project
+                    </div>
+                @endif
+            </div>
 
-    <div class="projects-container">
-      <section class="project-section" id="ascii-payment">
-        <div class="project-content">
-          <h2 class="project-title">ASCII Payment</h2>
-          <p class="project-description">
-            Secure digital payment platform with intuitive interface and
-            advanced transaction capabilities.
-          </p>
-          <a
-            href="https://onclck.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+        </section>
 
-      <section class="project-section" id="lumo">
-        <div class="project-content">
-          <h2 class="project-title">Lumo</h2>
-          <p class="project-description">
-            Interactive learning platform designed to enhance educational
-            experiences through innovative technology.
-          </p>
-          <a
-            href="https://easy-learning-two.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+    @empty
+        {{-- Empty State if no projects exist in database --}}
+        <section class="project-section" style="background-color: #0a0a1a;">
+            <div class="project-content">
+                <h2 class="project-title" style="color: #666;">No Projects Yet</h2>
+                <p class="project-description">
+                    Check back soon to see our latest work.
+                </p>
+                <a href="{{ url('/') }}" class="project-link-btn" style="border-color: #fff; color: #fff;">
+                    Return Home
+                </a>
+            </div>
+        </section>
+    @endforelse
 
-      <section class="project-section" id="usae-event-manager">
-        <div class="project-content">
-          <h2 class="project-title">USAE Event Manager</h2>
-          <p class="project-description">
-            Comprehensive event management system for seamless organization and
-            coordination of complex events.
-          </p>
-          <a
-            href="https://usae-2017.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+</div>
 
-      <section class="project-section" id="usae-registration">
-        <div class="project-content">
-          <h2 class="project-title">USAE Registration</h2>
-          <p class="project-description">
-            User registration and identification system with robust security and
-            seamless user experience.
-          </p>
-          <a
-            href="https://aastu-usae.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+@endsection
 
-      <section class="project-section" id="aastu-cafeteria">
-        <div class="project-content">
-          <h2 class="project-title">AASTU Cafeteria</h2>
-          <p class="project-description">
-            Digital cafeteria management platform streamlining food ordering and
-            inventory tracking.
-          </p>
-          <a
-            href="https://aastu-cafe.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
 
-      <section class="project-section" id="aastu-check-out">
-        <div class="project-content">
-          <h2 class="project-title">AASTU Check-out</h2>
-          <p class="project-description">
-            Efficient transaction tracking and check-out system with real-time
-            processing capabilities.
-          </p>
-          <a
-            href="https://aastu-slip.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+        // 1. Force Sidebar "Projects" link to be active
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => link.classList.remove('active'));
 
-      <section class="project-section" id="aastu-maps">
-        <div class="project-content">
-          <h2 class="project-title">AASTU Maps</h2>
-          <p class="project-description">
-            Interactive campus mapping solution providing comprehensive location
-            and navigation services.
-          </p>
-          <a
-            href="https://sweg-2014-ec-batch.github.io/AASTU-Loaction/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+        // Assuming the 4th link is Projects, or finding by href containing 'projects'
+        const projectsLink = document.querySelector('.sidebar-nav a[href*="projects"]');
+        if(projectsLink) projectsLink.classList.add('active');
 
-      <section class="project-section" id="student-validator">
-        <div class="project-content">
-          <h2 class="project-title">Student Validator</h2>
-          <p class="project-description">
-            Advanced student verification and authentication platform ensuring
-            secure institutional access.
-          </p>
-          <a
-            href="https://aastu-verfier.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+        // 2. Intersection Observer for Entry Animations
+        // This adds the class .in-view to the section when it appears on screen
+        const observerOptions = {
+            threshold: 0.4 // Trigger when 40% of the section is visible
+        };
 
-      <section class="project-section" id="saas-founders">
-        <div class="project-content">
-          <h2 class="project-title">SAAS Founders</h2>
-          <p class="project-description">
-            Networking platform connecting SaaS founders, investors, and
-            entrepreneurial resources.
-          </p>
-          <a
-            href="https://saas-founders.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
-    </div>
-    <script>
-      const cursor = document.querySelector(".cursor");
-      const grid = document.querySelector(".background-grid");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
 
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-
-        grid.style.transform = `translate(${e.clientX / -50}px, ${e.clientY / -50}px)`;
-      });
-
-      // Check if device is touch-enabled and disable custom cursor
-      function isTouchDevice() {
-        return (
-          "ontouchstart" in window ||
-          navigator.maxTouchPoints > 0 ||
-          navigator.msMaxTouchPoints > 0
-        );
-      }
-
-      if (isTouchDevice()) {
-        document.querySelector(".cursor").style.display = "none";
-        document.querySelectorAll("*").forEach((el) => {
-          el.style.cursor = "auto";
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".sidebar-nav a");
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                navLinks.forEach((link) => {
-                  link.classList.remove("active");
-                  if (link.getAttribute("href") === `#${entry.target.id}`) {
-                    link.classList.add("active");
-                  }
-                });
-              }
+                    // Optional: Update URL hash as user scrolls without jumping
+                    // history.replaceState(null, null, '#' + entry.target.id);
+                }
             });
-          },
-          { threshold: 0.3 }, // Reduced threshold for better mobile experience
-        );
+        }, observerOptions);
 
-        sections.forEach((section) => {
-          observer.observe(section);
+        const sections = document.querySelectorAll('.project-section');
+        sections.forEach(section => {
+            observer.observe(section);
         });
-      });
-    </script>
-  </body>
-</html>
+    });
+</script>
+@endpush
