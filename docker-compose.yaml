@@ -15,6 +15,20 @@ services:
       - ascii_portfolio_postgres:/var/lib/postgresql/data
     networks:
       - ascii_portfolio_network
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: ascii_blob
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ascii_admin
+      MINIO_ROOT_PASSWORD: qazwsxedc
+      MINIO_BROWSER_REDIRECT_URL: "http://localhost:9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server --console-address ":9001" /data
+    volumes:
+      - ascii_minio:/data
 
   laravel_app:
     build:
@@ -33,6 +47,7 @@ services:
 
 volumes:
   ascii_portfolio_postgres:
+  ascii_minio:
 
 networks:
   ascii_portfolio_network:

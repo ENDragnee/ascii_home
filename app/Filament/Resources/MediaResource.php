@@ -47,7 +47,8 @@ class MediaResource extends Resource
                         FileUpload::make('url')
                             ->label('Image File')
                             ->image()
-                            ->disk('public')
+                            ->disk(config('filesystems.default'))
+                            ->visibility('public')
                             ->directory('portfolio-media')
                             ->live() // Allows the hook to run immediately
                             ->afterStateUpdated(function (Set $set, ?TemporaryUploadedFile $state) {
@@ -89,7 +90,7 @@ class MediaResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('url')
-                    ->disk('public') // Tell the table to look in the public disk
+                    ->disk(config('filesystems.default'))
                     ->label('Preview')
                     ->square(),
 

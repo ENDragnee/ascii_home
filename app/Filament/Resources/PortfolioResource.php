@@ -72,7 +72,8 @@ class PortfolioResource extends Resource
                                     ->label('Image')
                                     ->image()
                                     ->directory('portfolio-media')
-                                    ->disk('public') // Explicitly set the disk
+                                    ->disk(config('filesystems.default')) // Explicitly set the disk
+                                    ->visibility('public')
                                     ->required()
                                     ->live() // Essential: triggers the hook immediately after upload
                                     ->afterStateUpdated(function (Set $set, ?TemporaryUploadedFile $state) {
@@ -109,7 +110,7 @@ class PortfolioResource extends Resource
                 // Displays the first image from the media relationship
                 ImageColumn::make('media.url')
                     ->label('Thumbnail')
-                    ->disk('public')
+                    ->disk(config('filesystems.default'))
                     ->circular()
                     ->stacked()
                     ->limit(1),

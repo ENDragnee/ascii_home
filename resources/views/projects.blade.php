@@ -4,14 +4,6 @@
 
 @push('styles')
 <style>
-    /* =========================================
-       Project Page Specific Styles
-       ========================================= */
-
-    /* Hide the global background grid on this page if it interferes with images,
-       or let it sit behind via z-index. Here we ensure sections cover it. */
-
-    /* Main Container for Scroll Snap */
     .projects-container {
         height: 100vh;
         width: 100%;

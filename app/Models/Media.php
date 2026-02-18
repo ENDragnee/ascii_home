@@ -11,9 +11,9 @@ class Media extends Model
 {
     use HasUuids;
 
-    protected $fillable = ['portfolio_id', 'mime_type', 'alt_text', 'url', 'file_size'];
+    protected $fillable = ['portfolio_id', 'mime_type', 'alt_text', 'url', 'file_size', 'is_thumbnail'];
 
-    public function porfolio(): BelongsTo
+    public function portfolio(): BelongsTo
     {
         return $this->belongsTo(Portfolio::class);
     }
@@ -23,7 +23,7 @@ class Media extends Model
     {
         static::deleting(function (Media $media) {
             if ($media->url) {
-                Storage::disk('public')->delete($media->url);
+                Storage::disk(config('filesystems.default'))->delete($media->url);
             }
         });
     }
