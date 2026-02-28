@@ -4,168 +4,168 @@
 
 @push('styles')
 <style>
+    /* =========================================
+       Root & Behavioral Styles (Matching Old UI)
+       ========================================= */
+    :root {
+        --bg-dark: #0a0a0a;
+        --text-silver: #c0c0c0;
+    }
+
+    body {
+        background-color: var(--bg-dark);
+        color: var(--text-silver);
+        overflow: hidden; /* Prevent double scrollbars */
+    }
+
+    /* Fullscreen Snap Container */
     .projects-container {
-        height: 100vh;
-        width: 100%;
-        overflow-y: auto;
         scroll-snap-type: y mandatory;
-        scroll-behavior: smooth;
-        /* Hide scrollbar for cleaner look */
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE/Edge */
+        overflow-y: auto;
+        height: 100vh;
+        width: 100vw;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Hide scrollbar for clean look */
     }
 
     .projects-container::-webkit-scrollbar {
-        display: none; /* Chrome/Safari */
+        display: none;
     }
 
-    /* Individual Project Section */
+    /* Individual Fullscreen Section */
     .project-section {
         height: 100vh;
         width: 100%;
-        position: relative;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         scroll-snap-align: start;
+        position: relative;
+        /* Parallax Effect from Old Template */
+        background-attachment: fixed;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        /* Fix background for parallax feel */
-        background-attachment: fixed;
-        overflow: hidden;
     }
 
-    /* Overlay to ensure text readability over any image */
+    /* Dark Overlay from Old Template */
     .project-section::before {
         content: "";
         position: absolute;
-        inset: 0;
-        /* Gradient from top (transparent) to bottom (darker) */
-        background: linear-gradient(
-            to bottom,
-            rgba(10, 10, 26, 0.3) 0%,
-            rgba(10, 10, 26, 0.6) 50%,
-            rgba(10, 10, 26, 0.95) 100%
-        );
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Slightly darker for better text contrast */
         z-index: 1;
-        pointer-events: none;
     }
 
-    /* Glassmorphism Content Box */
+    /* Content Styling */
     .project-content {
-        position: relative;
-        z-index: 2;
-        max-width: 900px;
-        padding: 3rem;
+        max-width: 800px;
         text-align: center;
-
-        /* The Glass Effect */
-        background: rgba(16, 16, 30, 0.65);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-
+        z-index: 2;
+        position: relative;
+        padding: 0 20px;
         /* Animation Entry */
         opacity: 0;
         transform: translateY(30px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* Animate content when in view (handled by JS intersection observer below) */
-    .project-section.in-view .project-content {
+    .project-section.active .project-content {
         opacity: 1;
         transform: translateY(0);
     }
 
-    /* Typography */
     .project-title {
-        font-family: 'Space Grotesk', sans-serif; /* Assuming you have this font */
-        font-size: clamp(2.5rem, 6vw, 4.5rem);
-        font-weight: 800;
-        line-height: 1.1;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(2rem, 7vw, 4.5rem);
         margin-bottom: 1.5rem;
         text-transform: uppercase;
-        letter-spacing: -1px;
-        /* Dynamic color applied inline via Blade */
+        font-weight: 800;
+        letter-spacing: 2px;
     }
 
     .project-description {
+        color: rgba(255, 255, 255, 0.8);
         font-size: clamp(1rem, 2vw, 1.25rem);
-        color: #e0e0e0;
-        line-height: 1.7;
         margin-bottom: 2.5rem;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
+        line-height: 1.6;
     }
 
-    /* Action Button */
-    .project-link-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 45px;
-        font-size: 1.1rem;
-        font-weight: 700;
+    /* Button Style (Old template border style + Modern glow) */
+    .project-link {
         text-decoration: none;
-        border-radius: 100px;
-        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border: 2px solid transparent;
-        background: transparent;
-    }
-
-    .project-link-btn:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        /* Background and text color swap handled inline */
-    }
-
-    .project-link-btn i {
-        transition: transform 0.3s ease;
-    }
-
-    .project-link-btn:hover i {
-        transform: translateX(4px) scale(1.1);
-    }
-
-    /* Internal/Private Project Badge */
-    .internal-badge {
+        padding: 12px 35px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
         display: inline-block;
-        padding: 12px 30px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.5);
-        border-radius: 50px;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: 2px solid;
+        background: transparent;
         text-transform: uppercase;
-        letter-spacing: 1.5px;
-        cursor: not-allowed;
     }
 
-    /* Mobile Responsive Adjustments */
+    .project-link:hover {
+        transform: scale(1.05);
+        color: #000 !important;
+    }
+
+    /* Sidebar - Matching Old Template position but new dots */
+    .sidebar-nav {
+        position: fixed;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 100;
+    }
+
+    .sidebar-nav a {
+        position: relative;
+        width: 12px;
+        height: 12px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-nav a.active {
+        transform: scale(1.5);
+    }
+
+    .sidebar-nav a::after {
+        content: attr(data-label);
+        position: absolute;
+        left: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 12px;
+        font-size: 11px;
+        border-radius: 4px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .sidebar-nav a:hover::after {
+        opacity: 1;
+    }
+
     @media (max-width: 768px) {
-        .projects-container {
-            scroll-snap-type: y proximity; /* Less strict on mobile */
-        }
-
         .project-section {
-            background-attachment: scroll; /* Fix performance on mobile */
-            padding: 1rem;
+            background-attachment: scroll; /* Performance fix for mobile */
         }
-
-        .project-content {
-            padding: 2rem 1.5rem;
-            border-radius: 16px;
-            background: rgba(16, 16, 30, 0.85); /* More opaque on mobile */
-        }
-
-        .project-title {
-            margin-bottom: 1rem;
+        .sidebar-nav {
+            display: none; /* Old behavior: sidebar often hidden or changed on mobile */
         }
     }
 </style>
@@ -173,31 +173,26 @@
 
 @section('content')
 
+{{-- Left Sidebar matching old behavior --}}
+<nav class="sidebar-nav">
+    <a href="{{ url('/') }}" data-label="Back Home"></a>
+    @foreach($portfolios as $project)
+        <a href="#project-{{ $project->id }}"
+           data-label="{{ $project->title }}"
+           class="nav-dot"
+           id="dot-project-{{ $project->id }}"></a>
+    @endforeach
+</nav>
+
 <div class="projects-container">
-
-    {{-- Loop through the portfolios passed from the Controller --}}
-    @forelse($portfolios as $index => $project)
-
+    @forelse($portfolios as $project)
         @php
-            // 1. Determine Background Image
-            // Logic: Check for 'is_thumbnail' first. If not found, use the first media item.
-            // If media is empty, use a placeholder.
-
+            // Blob Storage Logic: Prioritize Thumbnail, Fallback to First image
             $mediaItem = $project->media->sortByDesc('is_thumbnail')->first();
+            $bgUrl = $mediaItem ? Storage::url($mediaItem->url) : asset('images/default-bg.jpg');
 
-            if ($mediaItem) {
-                // Determine if we are on S3 or Local Public
-                $bgUrl = Storage::url($mediaItem->url);
-            } else {
-                // Fallback image if no media exists
-                $bgUrl = asset('images/default-bg.jpg'); // Ensure you have a default image
-            }
-
-            // 2. Determine Accent Color (Default to Teal if not set)
-            $accentColor = $project->color ?? '#00ffd4';
-
-            // 3. Convert Hex to RGB for rgba usage
-            list($r, $g, $b) = sscanf($accentColor, "#%02x%02x%02x");
+            // Dynamic Accent Color
+            $accent = $project->color ?? '#00ffd4';
         @endphp
 
         <section class="project-section"
@@ -205,52 +200,41 @@
                  style="background-image: url('{{ $bgUrl }}');">
 
             <div class="project-content">
-                {{-- Dynamic Title --}}
-                <h2 class="project-title" style="color: {{ $accentColor }}; text-shadow: 0 0 30px rgba({{ $r }}, {{ $g }}, {{ $b }}, 0.3);">
+                <h2 class="project-title" style="color: {{ $accent }};">
                     {{ $project->title }}
                 </h2>
 
-                {{-- Dynamic Description --}}
                 <p class="project-description">
                     {{ $project->description }}
                 </p>
 
-                {{-- Dynamic Link Logic --}}
                 @if($project->link)
                     <a href="{{ $project->link }}"
                        target="_blank"
-                       class="project-link-btn"
-                       style="border-color: {{ $accentColor }}; color: {{ $accentColor }};"
-                       onmouseover="this.style.backgroundColor='{{ $accentColor }}'; this.style.color='#000';"
-                       onmouseout="this.style.backgroundColor='transparent'; this.style.color='{{ $accentColor }}';">
-
+                       class="project-link"
+                       style="border-color: {{ $accent }}; color: {{ $accent }};"
+                       onmouseover="this.style.backgroundColor='{{ $accent }}';"
+                       onmouseout="this.style.backgroundColor='transparent'; this.style.color='{{ $accent }}';">
                        Explore Project
-                       <i class="fas fa-external-link-alt"></i>
                     </a>
                 @else
-                    <div class="internal-badge">
-                        <i class="fas fa-lock" style="margin-right: 8px;"></i> Internal / Private Project
-                    </div>
+                    <span style="color: rgba(255,255,255,0.4); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">
+                        <i class="fas fa-lock"></i> Private Case Study
+                    </span>
                 @endif
             </div>
 
         </section>
 
     @empty
-        {{-- Empty State if no projects exist in database --}}
-        <section class="project-section" style="background-color: #0a0a1a;">
-            <div class="project-content">
-                <h2 class="project-title" style="color: #666;">No Projects Yet</h2>
-                <p class="project-description">
-                    Check back soon to see our latest work.
-                </p>
-                <a href="{{ url('/') }}" class="project-link-btn" style="border-color: #fff; color: #fff;">
-                    Return Home
-                </a>
+        <section class="project-section">
+            <div class="project-content active">
+                <h2 class="project-title" style="color: #666;">Coming Soon</h2>
+                <p class="project-description">We are currently updating our portfolio with new success stories.</p>
+                <a href="{{ url('/') }}" class="project-link" style="border-color: #fff; color: #fff;">Return Home</a>
             </div>
         </section>
     @endforelse
-
 </div>
 
 @endsection
@@ -258,36 +242,42 @@
 @push('scripts')
 <script>
     document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll('.project-section');
+        const dots = document.querySelectorAll('.nav-dot');
 
-        // 1. Force Sidebar "Projects" link to be active
-        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
-        sidebarLinks.forEach(link => link.classList.remove('active'));
-
-        // Assuming the 4th link is Projects, or finding by href containing 'projects'
-        const projectsLink = document.querySelector('.sidebar-nav a[href*="projects"]');
-        if(projectsLink) projectsLink.classList.add('active');
-
-        // 2. Intersection Observer for Entry Animations
-        // This adds the class .in-view to the section when it appears on screen
         const observerOptions = {
-            threshold: 0.4 // Trigger when 40% of the section is visible
+            threshold: 0.5 // Trigger when half of the section is visible
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
+                    // Add active class to section for animations
+                    entry.target.classList.add('active');
 
-                    // Optional: Update URL hash as user scrolls without jumping
-                    // history.replaceState(null, null, '#' + entry.target.id);
+                    // Update Sidebar dots
+                    dots.forEach(dot => {
+                        dot.classList.remove('active');
+                        // Set active dot color dynamically
+                        dot.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                    });
+
+                    const activeDot = document.getElementById('dot-' + entry.target.id);
+                    if (activeDot) {
+                        activeDot.classList.add('active');
+                        // Match dot color to project accent color
+                        const projectColor = entry.target.querySelector('.project-title').style.color;
+                        activeDot.style.backgroundColor = projectColor;
+
+                        // Update Cursor color if it exists in layout
+                        const cursor = document.querySelector('.cursor');
+                        if(cursor) cursor.style.borderColor = projectColor;
+                    }
                 }
             });
         }, observerOptions);
 
-        const sections = document.querySelectorAll('.project-section');
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        sections.forEach(section => observer.observe(section));
     });
 </script>
 @endpush
