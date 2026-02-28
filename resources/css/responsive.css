@@ -1,0 +1,133 @@
+@media (min-width: 768px) {
+    .footer-content {
+        text-align: left;
+    }
+    .social-links {
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width: 992px) {
+    .creative-about .about-content {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "intro image"
+            "philosophy image";
+        gap: 4rem;
+    }
+    .about-intro {
+        grid-area: intro;
+        text-align: left;
+    }
+    .about-core-idea {
+        grid-area: image;
+        align-self: center;
+    }
+    .about-philosophy {
+        grid-area: philosophy;
+        text-align: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .about-intro,
+    .about-philosophy {
+        text-align: left;
+    }
+    .about-tagline {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    #how-we-work {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 4rem;
+    }
+}
+/* ==========================================================================
+           Professional Services Section (#services)
+           ========================================================================== */
+@media (max-width: 500px) {
+    .tech-view ul {
+        columns: 1;
+    } /* Stack on small screens */
+}
+.tech-view li {
+    color: var(--text-color);
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 1.2rem;
+    break-inside: avoid-column; /* Prevent list items breaking across columns */
+}
+.tech-view li::before {
+    /* Bullet point */
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    section {
+        padding: 4rem 1rem;
+    } /* Less padding on mobile */
+    .section-title {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+    }
+    .section-subtitle {
+        font-size: clamp(1rem, 4vw, 1.15rem);
+        margin-bottom: 2.5rem;
+    }
+
+    .professional-service-grid {
+        gap: 1.8rem;
+        grid-template-columns: 1fr;
+    }
+    .panel-content {
+        padding: 2rem 1.25rem 1rem 1.25rem;
+    }
+    .tech-toggle-btn {
+        width: calc(100% - 2.5rem);
+        margin: 1rem 1.25rem 1.5rem 1.25rem;
+    }
+
+    #how-we-work {
+        grid-template-columns: 1fr;
+    } /* Ensure stacking */
+    .process-intro,
+    .step {
+        text-align: center;
+    } /* Center text */
+    .step {
+        border-left: none;
+        border-top: 4px solid var(--primary-color);
+    } /* Top border */
+
+    .projects .project-cards {
+        grid-template-columns: 1fr;
+    }
+    #why-us .flex-container {
+        grid-template-columns: 1fr;
+    }
+    .feature {
+        text-align: center;
+    }
+    .feature .icon {
+        margin-left: auto;
+        margin-right: auto;
+    } /* Center icon */
+
+    .footer-content {
+        text-align: center;
+    }
+    .social-links {
+        justify-content: center;
+    }
+    .footer-contact-section p {
+        justify-content: center;
+    }
+}

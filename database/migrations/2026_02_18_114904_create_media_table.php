@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('path');
-            $table->enum('type', ['image', 'profile', 'video']);
+            $table->uuid('portfolio_id')->index();
+            $table->string('alt_text')->nullable();
             $table->string('url');
-            $table->string('mime')->nullable();
-            $table->unsignedBigInteger('size')->nullable();
+            $table->bigInteger('file_size')->nullable();
+            $table->string('mime_type')->nullable();
             $table->timestamps();
         });
     }

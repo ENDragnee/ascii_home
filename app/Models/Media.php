@@ -2,43 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage; // Import Storage facade
 
 class Media extends Model
 {
-    protected $fillable = [
-        'type',
-        'url',
-        'path',
-        'mime',
-        'size',
-        'user_id',
-    ];
+    use HasUuids;
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
+    protected $fillable = ['portfolio_id', 'mime_type', 'alt_text', 'url', 'file_size', 'is_thumbnail'];
 
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
-    protected static function boot()
+    public function portfolio(): BelongsTo
     {
-        parent::boot();
-
-        // Assign UUID automatically
-        static::creating(function ($model) {
-            if (! $model->id) {
-                $model->id = Str::uuid()->toString();
-            }
-        });
+        return $this->belongsTo(Portfolio::class);
     }
 
-    public function user()
+    //
+    protected static function booted()
     {
-        return $this->belongsTo(User::class);
+        static::deleting(function (Media $media) {
+            if ($media->url) {
+                Storage::disk(config('filesystems.default'))->delete($media->url);
+            }
+        });
     }
 }

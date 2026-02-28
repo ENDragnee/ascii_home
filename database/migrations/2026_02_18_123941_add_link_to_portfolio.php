@@ -11,17 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('id');
+        Schema::table('portfolios', function (Blueprint $table) {
+            $table->string('link')->nullable();
+            //
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->uuid('id')->primary()->first();
-        });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -29,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('uuid', function (Blueprint $table) {
+        Schema::table('portfolio', function (Blueprint $table) {
             //
         });
     }

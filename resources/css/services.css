@@ -1,0 +1,426 @@
+.industry-filter-container {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    color: var(--text-secondary);
+}
+.industry-filter-container label {
+    margin-right: 0.75rem;
+    font-size: 0.95rem;
+}
+.industry-filter-container select {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--card-bg-opaque); /* Use opaque */
+    border: 1px solid var(--card-border);
+    color: var(--text-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition:
+        border-color var(--transition-base),
+        background-color var(--transition-base);
+}
+.industry-filter-container select:hover {
+    border-color: var(--primary-color);
+}
+.industry-filter-container select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+}
+
+.service-module.is-expanded {
+    z-index: 10;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    cursor: default;
+    transform: translateY(0);
+    border-color: var(--primary-color);
+    overflow: visible;
+}
+.service-module.is-expanded .card-face {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease; /* Faster hide */
+}
+.service-module.is-expanded .expanded-panel {
+    opacity: 1;
+    pointer-events: auto; /* Make panel interactive */
+    transform: translateY(0) scale(1);
+    z-index: 3; /* Panel above hidden face */
+}
+
+.professional-services {
+    /* Slightly transparent background to show grid */
+    background-color: rgba(10, 10, 26, 0.97);
+    padding: 6rem 1.5rem 8rem 1.5rem;
+    position: relative;
+    overflow: hidden; /* Changed from visible */
+}
+
+/* Filter styling */
+.filter-note {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Service Grid */
+.professional-service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    gap: 2.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* Service Module Base */
+.service-module {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    border: 1px solid var(--card-border);
+    position: relative;
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        border-color var(--transition-base);
+    overflow: hidden; /* Important: hide panel initially */
+    cursor: pointer;
+    min-height: 250px; /* Ensure card face has space */
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+}
+.service-module:focus {
+    outline: none; /* Remove default outline */
+}
+.service-module:focus-visible {
+    /* Style keyboard focus */
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+/* Card Face (Visible initially) */
+.card-face {
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: relative; /* Relative to module */
+    transition:
+        opacity var(--transition-smooth),
+        transform var(--transition-smooth);
+    z-index: 2;
+    flex-grow: 1; /* Take available space */
+}
+.card-icon-wrapper {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    position: relative;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform var(--transition-base);
+}
+.micro-animation-bg {
+    /* Subtle glow background */
+    position: absolute;
+    inset: -15%; /* simpler positioning */
+    background: radial-gradient(
+        circle,
+        rgba(0, 229, 255, 0.15) 0%,
+        transparent 65%
+    );
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+        opacity var(--transition-smooth),
+        transform var(--transition-smooth);
+    z-index: -1;
+}
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    transition: color var(--transition-base);
+}
+.card-value-prop {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    max-width: 320px;
+}
+
+/* Card Face Hover/Focus State (when NOT expanded) */
+.service-module:not(.is-expanded):hover,
+.service-module:not(.is-expanded):focus-within {
+    transform: translateY(-6px);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.25),
+        0 0 18px var(--prof-shadow-color);
+    border-color: var(--primary-color);
+}
+.service-module:not(.is-expanded):hover .micro-animation-bg,
+.service-module:not(.is-expanded):focus-within .micro-animation-bg {
+    opacity: 1;
+    transform: scale(1);
+}
+.service-module:not(.is-expanded):hover .card-icon-wrapper {
+    transform: scale(1.1);
+}
+.service-module:not(.is-expanded):hover .card-title {
+    color: var(--primary-color);
+}
+
+/* Expanded Panel (Hidden initially) */
+.expanded-panel {
+    position: absolute; /* Position over the card face */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--card-bg-opaque); /* Use opaque bg */
+    z-index: 1; /* Below card face when hidden */
+    opacity: 0;
+    overflow-y: auto; /* Scroll if content overflows */
+    pointer-events: none;
+    transform: translateY(15px) scale(0.99);
+    transition:
+        opacity var(--transition-smooth),
+        transform var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+}
+.panel-content {
+    padding: 2.5rem 1.75rem 1rem 1.75rem;
+    flex-grow: 1;
+    position: relative; /* For close button positioning */
+}
+
+/* Close Button */
+.close-panel-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.3rem;
+    z-index: 10; /* Above panel content */
+    transition:
+        color var(--transition-base),
+        transform var(--transition-base);
+}
+.close-panel-btn:hover,
+.close-panel-btn:focus {
+    color: var(--primary-color);
+    transform: scale(1.1);
+    outline: none; /* Remove focus outline if styled on hover */
+}
+
+/* Expanded Panel Content Styling */
+.expanded-panel h4 {
+    /* E.g., "Challenge:", "Solution:" */
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--card-border);
+}
+.problem-statement {
+    color: var(--text-secondary);
+    margin-bottom: 1.8rem;
+    font-size: 1rem;
+    border-left: 3px solid var(--prof-accent-dark); /* Use a defined accent */
+    padding-left: 1rem;
+}
+.solution-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.8rem;
+}
+.solution-list li {
+    color: var(--text-color); /* Use primary text color */
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+.solution-list i.fa-check {
+    /* Style the check icon */
+    color: var(--primary-color);
+    margin-right: 0.8rem;
+    margin-top: 0.25em;
+    font-size: 0.85em;
+    flex-shrink: 0;
+}
+.case-study-snippet {
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 1.8rem;
+    border-left: 4px solid var(--primary-color);
+}
+.case-study-snippet h5 {
+    /* E.g., "Industry Example:" */
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+}
+.case-study-snippet p {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+.case-study-link {
+    /* Link within case study */
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+.case-study-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+.case-study-link i {
+    margin-left: 0.4rem;
+    font-size: 0.8em;
+    transition: transform 0.2s ease-in-out;
+}
+.case-study-link:hover i {
+    transform: translateX(3px);
+}
+
+/* Interactive Demo Area */
+.interactive-demo-area {
+    margin-bottom: 1.8rem;
+    border: 1px dashed var(--card-border);
+    padding: 1.8rem 1.2rem;
+    border-radius: 8px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.interactive-demo-area h5 {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+.demo-placeholder {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+.demo-placeholder::before {
+    /* Style potential icons */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+    display: inline-block; /* Allow margin */
+}
+.demo-placeholder.efficiency::before {
+    content: "\f201";
+} /* Chart icon */
+.demo-placeholder.roi::before {
+    content: "\f51e";
+} /* Dollar icon */
+
+/* Tech Toggle Button */
+.tech-toggle-btn {
+    display: block;
+    width: calc(100% - 3.5rem); /* Match panel padding */
+    margin: 0rem 1.75rem 1.75rem 1.75rem;
+    padding: 0.9rem 1.2rem;
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base),
+        border-color var(--transition-base);
+    flex-shrink: 0;
+    position: relative; /* For pseudo-elements */
+}
+.tech-toggle-btn:hover,
+.tech-toggle-btn:focus {
+    background-color: var(--primary-color);
+    color: var(--bg-color); /* Use dark bg color for text */
+    border-color: var(--primary-color);
+    outline: none;
+}
+/* Button Text Content (Handled by CSS pseudo-elements here, JS alternative available) */
+.tech-toggle-btn::before {
+    content: "View Technical Details ";
+    font-family: inherit; /* Use button font */
+}
+.service-module.show-tech .tech-toggle-btn::before {
+    content: "View Business Impact ";
+}
+/* Button Icon */
+.tech-toggle-btn::after {
+    content: "\f06e"; /* Eye icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-left: 0.7rem;
+    font-size: 0.9em;
+    transition: transform var(--transition-base);
+    display: inline-block; /* Allows transform */
+}
+.service-module.show-tech .tech-toggle-btn::after {
+    content: "\f070"; /* Eye-slash icon */
+}
+.tech-toggle-btn:hover::after {
+    transform: scale(1.1);
+}
+
+/* Tech View Content Styling */
+.tech-view {
+    display: none;
+}
+.service-module.show-tech .business-view {
+    display: none;
+}
+.service-module.show-tech .tech-view {
+    display: block;
+}
+
+.tech-view h4 {
+    /* Technical Overview title */
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.tech-view p {
+    color: var(--text-secondary);
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+}
+.tech-view ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+    columns: 2; /* Display tech stack in columns if wide enough */
+    column-gap: 2rem;
+}

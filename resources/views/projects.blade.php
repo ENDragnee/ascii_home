@@ -1,331 +1,39 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ascii Technologies - Project Showcase</title>
-    <link rel="icon" href="Artboard 1.ico" type="image/x-icon" />
-    <style>
-      :root {
+@extends('layouts.app')
+
+@section('title', 'Ascii Technologies - Project Showcase')
+
+@push('styles')
+<style>
+    /* =========================================
+       Root & Behavioral Styles (Matching Old UI)
+       ========================================= */
+    :root {
         --bg-dark: #0a0a0a;
-        --accent-teal: #00ffd4;
-        --accent-purple: #6a0dad;
         --text-silver: #c0c0c0;
-      }
+    }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        cursor: none;
-      }
-
-      @media (max-width: 768px) {
-        * {
-          cursor: auto; /* Disable custom cursor on mobile/touch devices */
-        }
-
-        .cursor {
-          display: none; /* Hide custom cursor on mobile */
-        }
-      }
-
-      body {
-        font-family: "Space Grotesk", sans-serif;
+    body {
         background-color: var(--bg-dark);
         color: var(--text-silver);
-        overflow-x: hidden;
-        line-height: 1.6;
-      }
+        overflow: hidden; /* Prevent double scrollbars */
+    }
 
-      #ascii-payment {
-        background-image: url("image/card.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #ascii-payment::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #ascii-payment .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #lumo {
-        background-image: url("image/lumo.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #lumo::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #lumo .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #usae-event-manager {
-        background-image: url("image/run.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #usae-event-manager::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #usae-event-manager .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #usae-registration {
-        background-image: url("image/sun.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #usae-registration::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #usae-registration .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #aastu-cafeteria {
-        background-image: url("image/cafeteria.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #aastu-cafeteria::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #aastu-cafeteria .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #aastu-check-out {
-        background-image: url("image/exit.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #aastu-check-out::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #aastu-check-out .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #aastu-maps {
-        background-image: url("image/map.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #aastu-maps::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #aastu-maps .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #student-validator {
-        background-image: url("image/hand.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #student-validator::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #student-validator .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      #saas-founders {
-        background-image: url("image/saas.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        padding: 50px 0;
-        color: white;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      #saas-founders::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-
-      #saas-founders .project-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      .background-grid {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-          linear-gradient(
-            0deg,
-            transparent 24%,
-            rgba(0, 255, 212, 0.05) 25%,
-            rgba(0, 255, 212, 0.05) 26%,
-            transparent 27%
-          ),
-          linear-gradient(
-            90deg,
-            transparent 24%,
-            rgba(0, 255, 212, 0.05) 25%,
-            rgba(0, 255, 212, 0.05) 26%,
-            transparent 27%
-          );
-        background-size: 50px 50px;
-        z-index: 1;
-        opacity: 2;
-        animation: gridMove 20s linear infinite;
-        pointer-events: none;
-      }
-
-      @keyframes gridMove {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: 50px 50px;
-        }
-      }
-
-      .projects-container {
-        scroll-snap-type: y proximity; /* Changed from mandatory for better mobile experience */
+    /* Fullscreen Snap Container */
+    .projects-container {
+        scroll-snap-type: y mandatory;
         overflow-y: auto;
         height: 100vh;
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
-      }
+        width: 100vw;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Hide scrollbar for clean look */
+    }
 
-      .project-section {
+    .projects-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Individual Fullscreen Section */
+    .project-section {
         height: 100vh;
         width: 100%;
         display: flex;
@@ -333,110 +41,81 @@
         justify-content: center;
         align-items: center;
         scroll-snap-align: start;
-        padding: 2rem;
         position: relative;
-        background-color: var(--bg-dark);
-      }
+        /* Parallax Effect from Old Template */
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 
-      .project-section::before {
+    /* Dark Overlay from Old Template */
+    .project-section::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(
-          circle at center,
-          rgba(0, 255, 212, 0.1) 0%,
-          transparent 70%
-        );
+        background: rgba(0, 0, 0, 0.6); /* Slightly darker for better text contrast */
         z-index: 1;
-      }
+    }
 
-      .project-content {
+    /* Content Styling */
+    .project-content {
         max-width: 800px;
         text-align: center;
         z-index: 2;
         position: relative;
         padding: 0 20px;
-      }
+        /* Animation Entry */
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
 
-      .project-title {
-        font-size: clamp(1.5rem, 6vw, 4rem);
-        color: var(--accent-teal);
-        margin-bottom: 1rem;
+    .project-section.active .project-content {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .project-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(2rem, 7vw, 4.5rem);
+        margin-bottom: 1.5rem;
         text-transform: uppercase;
-      }
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
 
-      .project-description {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: clamp(0.9rem, 2vw, 1.2rem);
-        margin-bottom: 2rem;
-      }
+    .project-description {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+    }
 
-      .project-link {
-        color: var(--accent-teal);
+    /* Button Style (Old template border style + Modern glow) */
+    .project-link {
         text-decoration: none;
-        border: 2px solid var(--accent-teal);
-        padding: 10px 20px;
+        padding: 12px 35px;
         border-radius: 5px;
         transition: all 0.3s ease;
         display: inline-block;
-        font-size: clamp(0.9rem, 2vw, 1rem);
-      }
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: 2px solid;
+        background: transparent;
+        text-transform: uppercase;
+    }
 
-      .project-link:hover {
-        background-color: var(--accent-teal);
-        color: var(--bg-dark);
-      }
+    .project-link:hover {
+        transform: scale(1.05);
+        color: #000 !important;
+    }
 
-      @media (max-width: 768px) {
-        .project-section {
-          padding: 1rem;
-          height: auto;
-          min-height: 100vh;
-        }
-
-        .project-title {
-          font-size: clamp(1.5rem, 6vw, 2.5rem);
-        }
-
-        .project-description {
-          font-size: 1rem;
-        }
-
-        .project-link {
-          padding: 12px 24px;
-          font-size: 1rem;
-        }
-
-        /* Disable fixed background on mobile for better performance */
-        #ascii-payment,
-        #lumo,
-        #usae-event-manager,
-        #usae-registration,
-        #aastu-cafeteria,
-        #aastu-check-out,
-        #aastu-maps,
-        #student-validator,
-        #saas-founders {
-          background-attachment: scroll;
-        }
-      }
-
-      .cursor {
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--accent-teal);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        transition: transform 0.1s ease;
-        z-index: 9999;
-      }
-
-      .sidebar-nav {
+    /* Sidebar - Matching Old Template position but new dots */
+    .sidebar-nav {
         position: fixed;
         left: 20px;
         top: 50%;
@@ -444,281 +123,161 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        z-index: 10;
-      }
+        z-index: 100;
+    }
 
-      .sidebar-nav a {
+    .sidebar-nav a {
         position: relative;
-        width: 15px;
-        height: 15px;
-        background-color: rgb(255 255 255 / 58%);
+        width: 12px;
+        height: 12px;
+        background-color: rgba(255, 255, 255, 0.3);
         border-radius: 50%;
         transition: all 0.3s ease;
-      }
+    }
 
-      .sidebar-nav a:hover {
-        background-color: var(--accent-teal);
+    .sidebar-nav a.active {
         transform: scale(1.5);
-      }
+    }
 
-      .sidebar-nav a::after {
+    .sidebar-nav a::after {
         content: attr(data-label);
         position: absolute;
         left: 30px;
         top: 50%;
         transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, 0.8);
         color: white;
-        padding: 5px 10px;
-        font-size: 12px;
-        border-radius: 16px;
+        padding: 4px 12px;
+        font-size: 11px;
+        border-radius: 4px;
         white-space: nowrap;
         opacity: 0;
         transition: opacity 0.3s ease;
         pointer-events: none;
-      }
+    }
 
-      .sidebar-nav a:hover::after {
+    .sidebar-nav a:hover::after {
         opacity: 1;
-      }
+    }
 
-      .sidebar-nav a.active {
-        background-color: var(--accent-teal);
-      }
-
-      /* Mobile navigation */
-      @media (max-width: 768px) {
+    @media (max-width: 768px) {
+        .project-section {
+            background-attachment: scroll; /* Performance fix for mobile */
+        }
         .sidebar-nav {
-          bottom: 0;
-          left: 0;
-          top: auto;
-          transform: none;
-          width: 100%;
-          flex-direction: row;
-          justify-content: space-around;
-          background-color: rgba(10, 10, 10, 0.8);
-          padding: 15px 0;
-          gap: 0;
+            display: none; /* Old behavior: sidebar often hidden or changed on mobile */
         }
+    }
+</style>
+@endpush
 
-        .sidebar-nav a {
-          width: 30px;
-          height: 30px;
-        }
+@section('content')
 
-        .sidebar-nav a::after {
-          display: none;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="cursor"></div>
-    <nav class="sidebar-nav">
-      <a href="index.html" data-label="Home"></a>
-      <a href="#about" data-label="About"></a>
-      <a href="#services" data-label="Services"></a>
-      <a href="#hero" class="active" data-label="Projects"></a>
-      <a href="#contact" data-label="Contact"></a>
-    </nav>
-    <div class="background-grid"></div>
+{{-- Left Sidebar matching old behavior --}}
+<nav class="sidebar-nav">
+    <a href="{{ url('/') }}" data-label="Back Home"></a>
+    @foreach($portfolios as $project)
+        <a href="#project-{{ $project->id }}"
+           data-label="{{ $project->title }}"
+           class="nav-dot"
+           id="dot-project-{{ $project->id }}"></a>
+    @endforeach
+</nav>
 
-    <div class="projects-container">
-      <section class="project-section" id="ascii-payment">
-        <div class="project-content">
-          <h2 class="project-title">ASCII Payment</h2>
-          <p class="project-description">
-            Secure digital payment platform with intuitive interface and
-            advanced transaction capabilities.
-          </p>
-          <a
-            href="https://onclck.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+<div class="projects-container">
+    @forelse($portfolios as $project)
+        @php
+            // Blob Storage Logic: Prioritize Thumbnail, Fallback to First image
+            $mediaItem = $project->media->sortByDesc('is_thumbnail')->first();
+            $bgUrl = $mediaItem ? Storage::url($mediaItem->url) : asset('images/default-bg.jpg');
 
-      <section class="project-section" id="lumo">
-        <div class="project-content">
-          <h2 class="project-title">Lumo</h2>
-          <p class="project-description">
-            Interactive learning platform designed to enhance educational
-            experiences through innovative technology.
-          </p>
-          <a
-            href="https://easy-learning-two.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+            // Dynamic Accent Color
+            $accent = $project->color ?? '#00ffd4';
+        @endphp
 
-      <section class="project-section" id="usae-event-manager">
-        <div class="project-content">
-          <h2 class="project-title">USAE Event Manager</h2>
-          <p class="project-description">
-            Comprehensive event management system for seamless organization and
-            coordination of complex events.
-          </p>
-          <a
-            href="https://usae-2017.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+        <section class="project-section"
+                 id="project-{{ $project->id }}"
+                 style="background-image: url('{{ $bgUrl }}');">
 
-      <section class="project-section" id="usae-registration">
-        <div class="project-content">
-          <h2 class="project-title">USAE Registration</h2>
-          <p class="project-description">
-            User registration and identification system with robust security and
-            seamless user experience.
-          </p>
-          <a
-            href="https://aastu-usae.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+            <div class="project-content">
+                <h2 class="project-title" style="color: {{ $accent }};">
+                    {{ $project->title }}
+                </h2>
 
-      <section class="project-section" id="aastu-cafeteria">
-        <div class="project-content">
-          <h2 class="project-title">AASTU Cafeteria</h2>
-          <p class="project-description">
-            Digital cafeteria management platform streamlining food ordering and
-            inventory tracking.
-          </p>
-          <a
-            href="https://aastu-cafe.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+                <p class="project-description">
+                    {{ $project->description }}
+                </p>
 
-      <section class="project-section" id="aastu-check-out">
-        <div class="project-content">
-          <h2 class="project-title">AASTU Check-out</h2>
-          <p class="project-description">
-            Efficient transaction tracking and check-out system with real-time
-            processing capabilities.
-          </p>
-          <a
-            href="https://aastu-slip.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+                @if($project->link)
+                    <a href="{{ $project->link }}"
+                       target="_blank"
+                       class="project-link"
+                       style="border-color: {{ $accent }}; color: {{ $accent }};"
+                       onmouseover="this.style.backgroundColor='{{ $accent }}';"
+                       onmouseout="this.style.backgroundColor='transparent'; this.style.color='{{ $accent }}';">
+                       Explore Project
+                    </a>
+                @else
+                    <span style="color: rgba(255,255,255,0.4); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">
+                        <i class="fas fa-lock"></i> Private Case Study
+                    </span>
+                @endif
+            </div>
 
-      <section class="project-section" id="aastu-maps">
-        <div class="project-content">
-          <h2 class="project-title">AASTU Maps</h2>
-          <p class="project-description">
-            Interactive campus mapping solution providing comprehensive location
-            and navigation services.
-          </p>
-          <a
-            href="https://sweg-2014-ec-batch.github.io/AASTU-Loaction/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+        </section>
 
-      <section class="project-section" id="student-validator">
-        <div class="project-content">
-          <h2 class="project-title">Student Validator</h2>
-          <p class="project-description">
-            Advanced student verification and authentication platform ensuring
-            secure institutional access.
-          </p>
-          <a
-            href="https://aastu-verfier.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
+    @empty
+        <section class="project-section">
+            <div class="project-content active">
+                <h2 class="project-title" style="color: #666;">Coming Soon</h2>
+                <p class="project-description">We are currently updating our portfolio with new success stories.</p>
+                <a href="{{ url('/') }}" class="project-link" style="border-color: #fff; color: #fff;">Return Home</a>
+            </div>
+        </section>
+    @endforelse
+</div>
 
-      <section class="project-section" id="saas-founders">
-        <div class="project-content">
-          <h2 class="project-title">SAAS Founders</h2>
-          <p class="project-description">
-            Networking platform connecting SaaS founders, investors, and
-            entrepreneurial resources.
-          </p>
-          <a
-            href="https://saas-founders.vercel.app/"
-            target="_blank"
-            class="project-link"
-            >Explore Project</a
-          >
-        </div>
-      </section>
-    </div>
-    <script>
-      const cursor = document.querySelector(".cursor");
-      const grid = document.querySelector(".background-grid");
+@endsection
 
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll('.project-section');
+        const dots = document.querySelectorAll('.nav-dot');
 
-        grid.style.transform = `translate(${e.clientX / -50}px, ${e.clientY / -50}px)`;
-      });
+        const observerOptions = {
+            threshold: 0.5 // Trigger when half of the section is visible
+        };
 
-      // Check if device is touch-enabled and disable custom cursor
-      function isTouchDevice() {
-        return (
-          "ontouchstart" in window ||
-          navigator.maxTouchPoints > 0 ||
-          navigator.msMaxTouchPoints > 0
-        );
-      }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Add active class to section for animations
+                    entry.target.classList.add('active');
 
-      if (isTouchDevice()) {
-        document.querySelector(".cursor").style.display = "none";
-        document.querySelectorAll("*").forEach((el) => {
-          el.style.cursor = "auto";
-        });
-      }
+                    // Update Sidebar dots
+                    dots.forEach(dot => {
+                        dot.classList.remove('active');
+                        // Set active dot color dynamically
+                        dot.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                    });
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".sidebar-nav a");
+                    const activeDot = document.getElementById('dot-' + entry.target.id);
+                    if (activeDot) {
+                        activeDot.classList.add('active');
+                        // Match dot color to project accent color
+                        const projectColor = entry.target.querySelector('.project-title').style.color;
+                        activeDot.style.backgroundColor = projectColor;
 
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                navLinks.forEach((link) => {
-                  link.classList.remove("active");
-                  if (link.getAttribute("href") === `#${entry.target.id}`) {
-                    link.classList.add("active");
-                  }
-                });
-              }
+                        // Update Cursor color if it exists in layout
+                        const cursor = document.querySelector('.cursor');
+                        if(cursor) cursor.style.borderColor = projectColor;
+                    }
+                }
             });
-          },
-          { threshold: 0.3 }, // Reduced threshold for better mobile experience
-        );
+        }, observerOptions);
 
-        sections.forEach((section) => {
-          observer.observe(section);
-        });
-      });
-    </script>
-  </body>
-</html>
+        sections.forEach(section => observer.observe(section));
+    });
+</script>
+@endpush

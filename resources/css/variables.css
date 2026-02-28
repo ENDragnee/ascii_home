@@ -1,0 +1,16 @@
+:root {
+    --primary-color: #00e5ff;
+    --secondary-color: #1d1dff;
+    --primary-glow-color: rgba(0, 229, 255, 0.6);
+    --text-color: #e0e0e0;
+    --text-secondary: #a0a0c0;
+    --bg-color: #0a0a1a;
+    --card-bg: rgba(25, 25, 45, 0.85);
+    --card-bg-opaque: #19192d;
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-hover-border: var(--primary-glow-color);
+    --card-shadow: rgba(0, 0, 0, 0.2);
+    --card-hover-shadow: rgba(0, 0, 0, 0.3);
+    --transition-base: 0.3s ease-in-out;
+    --transition-smooth: 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+}

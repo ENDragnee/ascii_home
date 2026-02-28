@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id');
-            $table->string('project_name');
-            $table->text('description')->nullable();
-            $table->string('image_url')->nullable();
-            $table->string('project_url')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('title');
+            $table->text('description');
+            $table->string('color');
             $table->timestamps();
         });
     }

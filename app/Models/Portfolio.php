@@ -2,48 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Portfolio extends Model
 {
-    protected $fillable = [
-        'project_name',
-        'description',
-        'image_url',
-        'project_url',
-        'user_id',
-    ];
+    use HasUuids;
 
-    protected $table = 'portfolios';
+    protected $fillable = ['title', 'description', 'color', 'link'];
 
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
-    protected $primaryKey = 'id';
-
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-
-    protected static function boot()
+    public function media(): HasMany
     {
-        parent::boot();
-
-        // Assign UUID automatically
-        static::creating(function ($model) {
-            if (! $model->id) {
-                $model->id = Str::uuid()->toString();
-            }
-        });
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Media::class, 'portfolio_id');
     }
 
     //
+    //
+    protected static function booted(): void
+    {
+        static::deleting(function (Portfolio $portfolio) {
+            $portfolio->media->each(function ($media) {
+                $media->delete();
+            });
+        });
+    }
 }
